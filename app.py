@@ -46,7 +46,7 @@ def handle_message(event):
     #sample_func()
     #print("Handle: reply_token: " + event.reply_token + ", message: " + event.message.text)
     url = "https://search.books.com.tw/search/query/key/"+event.message.text+"/cat/all/fclick/autocomp"
-    a=crawl(url)
+    a=crawl(url)#
     content = "{} {}: {} : {}".format(sample_func(),event.source.user_id, event.message.text,a["title"])
     line_bot_api.reply_message(
         event.reply_token,
