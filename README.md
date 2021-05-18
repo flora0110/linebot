@@ -3,4 +3,4 @@
 * name : crawlerbot
 ## heroku 
 * app name : crawlerbotnew  
-![image] (qrcode.jpg)
+![image](qrcode.jpg)
