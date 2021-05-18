@@ -14,7 +14,8 @@ import urllib.request as req
 import bs4
 import json
 import collections
-from crawl import sample_func
+from crawler import sample_func
+from crawler import crawl
 
 app = Flask(__name__)
 
@@ -44,7 +45,9 @@ def handle_message(event):
     #crawl(https://www.ptt.cc/bbs/Gossiping/index.html)
     #sample_func()
     #print("Handle: reply_token: " + event.reply_token + ", message: " + event.message.text)
-    content = "{} {}: {}".format(sample_func(),event.source.user_id, event.message.text)
+    url = "https://search.books.com.tw/search/query/key/"+event.message.text+"/cat/all/fclick/autocomp"
+    a=crawl(url)
+    content = "{} {}: {} : {}".format(sample_func(),event.source.user_id, event.message.text,a["title"])
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=content))

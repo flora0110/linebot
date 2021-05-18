@@ -28,18 +28,26 @@ def crawl(url):
     root=bs4.BeautifulSoup(data,"html.parser")
     #這裡的root就是解析完成後，所產生的結構樹物件，接下來所有資料的搜尋、萃取等操作都會透過這個物件來進行。
     #html.parser 為python內建的解析器，lxml為解析速度最快的
-
-    titles=root.find_all("div",class_="title")#尋找所有class="title"的div標籤
-    for title in titles:
-        if title.a != None:#如果標題包含 a標籤(沒有被刪除)
-            link=title.a["href"]
-            crawl_text(link)#進入此文章
+    items = root.find_all("a",target="_blank")
+    #print(items)
+    #a=1
+    #for b in items:
+    #    print(a)
+    #    a=a+1
+        #print(b["title"])
+    return items[0]
+    #titles=root.find_all("div",class_="title")#尋找所有class="title"的div標籤
+    #for title in titles:
+    #    if title.a != None:#如果標題包含 a標籤(沒有被刪除)
+    #        link=title.a["href"]
+    #        crawl_text(link)#進入此文章
 
     #找到下頁的bottom
-    nextpage = root.find("a",string = "‹ 上頁")
-    return nextpage["href"]#回傳bottom's url
+    #nextpage = root.find("a",string = "‹ 上頁")
+    #return nextpage["href"]#回傳bottom's url
 
 #爬文章內容
+
 def crawl_text(url):
     url = "http://www.ptt.cc"+ url
     request=req.Request(url, headers={
@@ -133,10 +141,17 @@ def crawl_text(url):
         print("writing...")
 def sample_func():
     return 'Hello!'
-url="https://www.ptt.cc/bbs/Gossiping/index.html"
+#url="https://www.ptt.cc/bbs/Gossiping/index.html"
 #f = open('gossipingcrawler_test.txt', 'w')
 #n=0
 #while n<2:
 #    url = "http://www.ptt.cc"+ crawl(url)
 #    n+=1
 #f.close()
+text  = "backpack"
+#url = "https://search.books.com.tw/search/key/music/all"
+url = "https://search.books.com.tw/search/query/key/"+text+"/all"
+a=crawl(url)
+print(a["title"])
+#for b in a :
+    #print(b["title"])
