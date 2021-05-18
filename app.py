@@ -14,7 +14,7 @@ import urllib.request as req
 import bs4
 import json
 import collections
-from ..college_project.gossipg import sample_func
+from crawl import sample_func
 
 app = Flask(__name__)
 
@@ -42,9 +42,9 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     #crawl(https://www.ptt.cc/bbs/Gossiping/index.html)
-    sample_func()
+    #sample_func()
     #print("Handle: reply_token: " + event.reply_token + ", message: " + event.message.text)
-    content = "{}: {}".format(event.source.user_id, event.message.text)
+    content = "{} {}: {}".format(sample_func(),event.source.user_id, event.message.text)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=content))
@@ -52,3 +52,4 @@ def handle_message(event):
 import os
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=os.environ['PORT'])
+sample_func()
